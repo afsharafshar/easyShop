@@ -1,6 +1,6 @@
 using EasyShop.Domain.Common;
 
-namespace EasyShop.Domain.Product;
+namespace EasyShop.Domain.ProductAggregate;
 
 public class Product : AggregateRoot
 {

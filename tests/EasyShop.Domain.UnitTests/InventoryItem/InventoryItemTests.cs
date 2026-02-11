@@ -1,4 +1,4 @@
-using EasyShop.Domain.InventoryItem;
+using EasyShop.Domain.InventoryItemAggregate;
 using ErrorOr;
 using FluentAssertions;
 
@@ -11,7 +11,7 @@ public class InventoryItemTests
     [InlineData(1, 2)]
     public void Reserve_WhenMoreThanAvailable_ShouldFail(int onhand, int reserve)
     {
-        var inventory = new Domain.InventoryItem.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onhand);
+        var inventory = new InventoryItemAggregate.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onhand);
 
         var result = inventory.Reserve(reserve);
 
@@ -24,7 +24,7 @@ public class InventoryItemTests
     [InlineData(1, 1)]
     public void Reserve_WhenMoreLessThanOrEqualAvailable_ShouldSuccess(int onhand, int reserve)
     {
-        var inventory = new Domain.InventoryItem.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onhand);
+        var inventory = new InventoryItemAggregate.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onhand);
 
         var result = inventory.Reserve(reserve);
 
@@ -37,7 +37,7 @@ public class InventoryItemTests
     [InlineData(1, 0, 6)]
     public void Release_WhenMoreThanReserved_ShouldFail(int onHand, int reserve, int release)
     {
-        var inventory = new Domain.InventoryItem.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onHand);
+        var inventory = new InventoryItemAggregate.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onHand);
 
         inventory.Reserve(reserve);
 
@@ -53,7 +53,7 @@ public class InventoryItemTests
     [InlineData(5, 4, 2)]
     public void Release_WhenLessThanOrEqualToReserved_ShouldSuccess(int onHand, int reserve, int release)
     {
-        var inventory = new Domain.InventoryItem.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onHand);
+        var inventory = new InventoryItemAggregate.InventoryItem(Guid.NewGuid(), Guid.NewGuid(), onHand);
 
         inventory.Reserve(reserve);
 

@@ -1,6 +1,6 @@
 using ErrorOr;
 
-namespace EasyShop.Domain.InventoryItem;
+namespace EasyShop.Domain.InventoryItemAggregate;
 
 public static class InventoryItemErrors
 {

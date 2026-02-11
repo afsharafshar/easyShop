@@ -1,7 +1,7 @@
 using EasyShop.Domain.Common;
 using ErrorOr;
 
-namespace EasyShop.Domain.InventoryItem;
+namespace EasyShop.Domain.InventoryItemAggregate;
 
 public class InventoryItem : AggregateRoot
 {
