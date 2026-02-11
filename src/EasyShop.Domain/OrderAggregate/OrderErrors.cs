@@ -11,4 +11,6 @@ public static class OrderErrors
 
     public static readonly Error OrderItemQtyMustBePositive =
         Error.Validation("Order.ItemQtyMustBePositive", "Order item quantity must be greater then zero");
+    
+    public static readonly Error ProductMustBeActive = Error.Validation("Order.MustHasActiveProduct", "Product must be active");
 }
