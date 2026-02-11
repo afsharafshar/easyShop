@@ -5,5 +5,7 @@
     <Project Path="src/EasyShop.Domain/EasyShop.Domain.csproj" />
     <Project Path="src/EasyShop.Infrastructure/EasyShop.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/EasyShop.Domain.UnitTests/EasyShop.Domain.UnitTests.csproj" />
+  </Folder>
 </Solution>
