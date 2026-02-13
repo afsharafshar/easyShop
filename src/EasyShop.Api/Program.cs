@@ -11,6 +11,8 @@ builder.Services.AddOpenApi();
     builder.Services.AddApi();
 var app = builder.Build();
 
+app.UseCorrelationId();
+
 if (app.Environment.IsDevelopment())
 {
 }
