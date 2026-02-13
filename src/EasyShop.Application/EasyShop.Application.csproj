@@ -6,4 +6,27 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EasyShop.Domain\EasyShop.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+      <PackageReference Include="Mapster" Version="7.4.0" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="InventoryItems\Commands\" />
+      <Folder Include="InventoryItems\Events\" />
+      <Folder Include="InventoryItems\Queries\" />
+      <Folder Include="Orders\Events\" />
+      <Folder Include="Orders\Queries\" />
+      <Folder Include="Products\Commands\" />
+      <Folder Include="Products\Events\" />
+      <Folder Include="Products\Queries\" />
+    </ItemGroup>
+
 </Project>

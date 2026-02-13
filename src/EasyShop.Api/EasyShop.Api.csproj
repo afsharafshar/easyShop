@@ -14,4 +14,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EasyShop.Infrastructure\EasyShop.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

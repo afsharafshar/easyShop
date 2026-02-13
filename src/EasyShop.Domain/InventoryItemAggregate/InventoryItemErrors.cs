@@ -12,4 +12,7 @@ public static class InventoryItemErrors
 
     public static readonly Error InvalidReserveQty =
         Error.Validation("InventoryItemReserveQty", "reserve must be less than or equal to available qty");
+    
+    public static readonly Error NotFound =
+        Error.Validation("InventoryItemNotFound", "inventory item not found");
 }

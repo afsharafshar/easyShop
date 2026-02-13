@@ -66,7 +66,7 @@ public class Order : AggregateRoot
         _domainEvents.Add(new OrderCanceledEvent(Id));
     }
 
-    internal void LoadItems(IEnumerable<OrderItem> items)
+    public void LoadItems(IEnumerable<OrderItem> items)
     {
         _items.Clear();
         _items.AddRange(items);
