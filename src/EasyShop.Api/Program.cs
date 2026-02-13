@@ -1,14 +1,23 @@
 using EasyShop.Api.Endpoints;
 using EasyShop.Api.Infrastructure;
-using EasyShop.Application;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .Enrich.WithCorrelationIdHeader("X-Correlation-ID")
+    .WriteTo.Console()
+    .CreateLogger();
+builder.Host.UseSerilog();
+
+
 builder.Services.AddOpenApi();
 // builder.Services.AddApplicationServices()
-    // .AddApi();
+// .AddApi();
 
-    builder.Services.AddApi();
+builder.Services.AddApi();
 var app = builder.Build();
 
 app.UseCorrelationId();
@@ -16,32 +25,22 @@ app.UseCorrelationId();
 if (app.Environment.IsDevelopment())
 {
 }
+
 app.MapOpenApi();
 
-
 app.RegisterHealthEndpoint();
-var summaries = new[]
+
+app.UseCors("AllowAll");
+
+try
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+    app.Run();
+}
+catch (Exception ex)
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    Log.Fatal(ex, "The application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
 }

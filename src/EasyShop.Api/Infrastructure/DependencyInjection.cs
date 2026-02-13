@@ -10,6 +10,18 @@ public static class DependencyInjection
             .AddCheck("easy-shop", () => HealthCheckResult.Healthy());
 
         services.AddHttpContextAccessor();
+        
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+        
         return services;
     }
 }
