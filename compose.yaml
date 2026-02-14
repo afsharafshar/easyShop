@@ -1,0 +1,40 @@
+﻿services:
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: my-sql
+    environment:
+      SA_PASSWORD: "P@ssw0rd123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "P@ssw0rd123", "-Q", "SELECT 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - easynet
+      
+  easyshop.api:
+    image: easyshop.api
+    container_name: easyshop-api
+    build: .
+    depends_on:
+      - sqlserver
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=easyshop;User=sa;Password=P@ssw0rd123;TrustServerCertificate=True;
+    networks:
+      - easynet
+volumes:
+  sql_data:
+    
+networks:
+  easynet:
+    driver: bridge

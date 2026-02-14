@@ -23,7 +23,7 @@ public class InventoryItemRepository(IUnitOfWork unitOfWork) : IInventoryItemRep
 
     public async Task Add(InventoryItem inventoryItem, CancellationToken cancellationToken)
     {
-        var sql = "INSERT INTO InventoryItems (Id,ProductId,WarehouseId,OnHandQty,OnHandQty) VALUES (@Id,@ProductId,@WarehouseId,@OnHandQty,@OnHandQty)";
+        var sql = "INSERT INTO InventoryItems (Id,ProductId,WarehouseId,OnHandQty) VALUES (@Id,@ProductId,@WarehouseId,@OnHandQty)";
         await unitOfWork.Connection.ExecuteAsync(sql, inventoryItem, unitOfWork.Transaction);
     }
 

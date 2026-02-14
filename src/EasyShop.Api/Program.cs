@@ -21,13 +21,12 @@ builder.Services.AddApplicationServices()
     .AddInfrastructure(builder.Configuration)
     .AddApi();
 
-// builder.Services.AddApi();
 var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var sp = scope.ServiceProvider;
 var seeder = sp.GetRequiredService<DatabaseSeeder>();
-await seeder.EnsureDatabaseExistsAsync(CancellationToken.None);
+await seeder.CreateAndSeedDatabase(CancellationToken.None);
 
 app.UseCorrelationId();
 
