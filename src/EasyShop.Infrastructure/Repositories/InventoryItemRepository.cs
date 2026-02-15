@@ -29,8 +29,8 @@ public class InventoryItemRepository(IUnitOfWork unitOfWork) : IInventoryItemRep
 
     private async Task Update(InventoryItem inventoryItem, CancellationToken cancellationToken)
     {
-        string sql = @"UPDATE InventoryItems SET  ReservedQty= @reservedQty WHERE Id = @Id AND RowVersion = @RowVersion";
-        var rowsAffected = await unitOfWork.Connection.ExecuteAsync(sql, new {reservedQty = inventoryItem.ReservedQty, Id= inventoryItem.Id}, unitOfWork.Transaction);
+        string sql = @"UPDATE InventoryItems SET  ReservedQty= @ReservedQty WHERE Id = @Id AND RowVersion = @RowVersion";
+        var rowsAffected = await unitOfWork.Connection.ExecuteAsync(sql, new {inventoryItem.ReservedQty, inventoryItem.Id, inventoryItem.RowVersion}, unitOfWork.Transaction);
 
         if (rowsAffected == 0)
         {

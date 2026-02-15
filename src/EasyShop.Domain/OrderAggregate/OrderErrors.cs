@@ -15,4 +15,6 @@ public static class OrderErrors
     public static readonly Error ProductMustBeActive = Error.Validation("Order.MustHasActiveProduct", "Product must be active");
     
     public static readonly Error OrderNotFound = Error.Validation("Order.NotFound", "Order not found");
+    
+    public static readonly Error OrderHasNoItem = Error.Validation("Order.HasNoItem", "Order must have item(s) to proceed");
 }

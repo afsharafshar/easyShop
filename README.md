@@ -2,11 +2,13 @@ in root of project
 
 `docker compose up -d --build`
 
+url to see swagger : 
+
+`http://localhost:8080`
+
 remaining work:
 
-- add endpoints
-- add outbox 
-- add job for rasing event from outbox
+-  outbox jobs to read and publish ramined
 - implment notification to read events
-- log and enrich data
+- log and enrich data and use elastic to store them
 - unit and integration test

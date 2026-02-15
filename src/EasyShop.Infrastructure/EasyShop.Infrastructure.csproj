@@ -17,13 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Scripts\Migration.sql">
+      <None Remove="Scripts\Migration.sql" />
+      <Content Include="Scripts\Migration.sql">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      </Content>
     </ItemGroup>
 
 </Project>

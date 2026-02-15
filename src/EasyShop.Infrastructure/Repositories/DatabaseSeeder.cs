@@ -1,3 +1,4 @@
+using System.Reflection;
 using Dapper;
 using EasyShop.Application.Common.Interfaces;
 using EasyShop.Domain.InventoryItemAggregate;
@@ -12,7 +13,8 @@ public class DatabaseSeeder(IConfiguration configuration, ILogger<DatabaseSeeder
 {
     public async Task EnsureDatabaseMigrated(CancellationToken cancellationToken)
     {
-        var script = await File.ReadAllTextAsync("Scripts/Migration.sql", cancellationToken);
+        string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Scripts","Migration.sql");
+        var script = await File.ReadAllTextAsync(path, cancellationToken);
         
         await using var connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         
