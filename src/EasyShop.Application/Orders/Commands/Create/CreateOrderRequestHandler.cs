@@ -2,7 +2,7 @@ using EasyShop.Domain.OrderAggregate;
 
 namespace EasyShop.Application.Orders.Commands.Create;
 
-public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequest, ErrorOr<Guid>>
+public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequest, ErrorOr<CreateOrderResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IProductRepository _productRepository;
@@ -15,10 +15,13 @@ public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequest, Err
         _orderRepository = orderRepository;
     }
     
-    public async Task<ErrorOr<Guid>> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<CreateOrderResponse>> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
     {
         var order = new Order(request.CustomerId);
 
+        if (!request.Items.Any())
+            return OrderErrors.OrderHasNoItem;
+        
         foreach (var item in request.Items)
         {
             var isActive = await _productRepository.IsActive(item.ProductId, cancellationToken);
@@ -32,6 +35,9 @@ public class CreateOrderRequestHandler : IRequestHandler<CreateOrderRequest, Err
         
         await _orderRepository.Create(order, cancellationToken);
 
-        return order.Id;
+        return new CreateOrderResponse
+        {
+            Id = order.Id,
+        };
     }
 }

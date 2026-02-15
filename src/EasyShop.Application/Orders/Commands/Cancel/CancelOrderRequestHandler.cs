@@ -36,7 +36,7 @@ public class CancelOrderRequestHandler : IRequestHandler<CancelOrderRequest, Err
         
         order.Cancel();
 
-        await _orderRepository.ChangeStatus(order.Id, order.Status, cancellationToken);
+        await _orderRepository.ChangeStatus(order, cancellationToken);
 
         return Result.Success;
     }

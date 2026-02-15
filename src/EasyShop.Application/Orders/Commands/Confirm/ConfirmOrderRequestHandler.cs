@@ -65,7 +65,7 @@ public class ConfirmOrderRequestHandler : IRequestHandler<ConfirmOrderRequest, E
             
            await _inventoryItemRepository.Update(inventoryItemList, cancellationToken);
            
-           await _orderRepository.ChangeStatus(order.Id, order.Status, cancellationToken);
+           await _orderRepository.ChangeStatus(order, cancellationToken);
            
            _unitOfWork.Commit(cancellationToken);
         }
